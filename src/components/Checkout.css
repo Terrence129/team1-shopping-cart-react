@@ -1,0 +1,410 @@
+/* Checkout Page Styles */
+.checkout-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page Header */
+.page-header {
+  margin: 2rem 0;
+}
+
+.header-content h1 {
+  margin: 0 0 1.5rem 0;
+  color: #2c3e50;
+  font-size: 2.5rem;
+}
+
+/* Steps Indicator */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.step.active .step-number {
+  background-color: #007bff;
+  color: white;
+}
+
+.step.done .step-number {
+  background-color: #28a745;
+  color: white;
+}
+
+.step.active {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.step.done {
+  color: #28a745;
+}
+
+/* Checkout Grid */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Panels */
+.panel {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.panel-title {
+  margin: 0 0 1.5rem 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Form Layout */
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.req {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+.form-textarea::placeholder {
+  color: #adb5bd;
+}
+
+/* Radio Buttons */
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.radio:hover {
+  border-color: #007bff;
+  background-color: white;
+}
+
+.radio input[type="radio"] {
+  margin: 0;
+}
+
+.radio input[type="radio"]:checked + span {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.radio:has(input:checked) {
+  border-color: #007bff;
+  background-color: white;
+}
+
+/* Summary Panel */
+.summary {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.summary-list {
+  margin-bottom: 1.5rem;
+  overflow: auto;
+  max-height: 300px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.item-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.item-sub {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.item-amt {
+  font-weight: 600;
+  color: #dc3545;
+}
+
+.hr {
+  border: none;
+  border-top: 1px solid #dee2e6;
+  margin: 1rem 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.summary-row.strong {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  padding-top: 1rem;
+  border-top: 2px solid #dee2e6;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.muted {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Summary Actions */
+.summary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-ghost-dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #6c757d;
+  border-radius: 4px;
+  background-color: white;
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-ghost-dark:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+  z-index: 1000;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6c757d;
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .summary {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    margin: 1rem 0;
+  }
+
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .panel,
+  .summary {
+    padding: 1.5rem;
+  }
+
+  .row-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .steps {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .step {
+    font-size: 0.8rem;
+  }
+
+  .step-number {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .panel,
+  .summary {
+    padding: 1rem;
+  }
+
+  .header-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .summary-item {
+    gap: 0.75rem;
+  }
+
+  .item-thumb {
+    width: 50px;
+    height: 50px;
+  }
+
+  .item-title {
+    font-size: 0.9rem;
+  }
+
+  .item-sub {
+    font-size: 0.8rem;
+  }
+
+  .summary-actions {
+    gap: 0.75rem;
+  }
+}

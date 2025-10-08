@@ -1,0 +1,110 @@
+export const products = [
+  {
+    id: 1,
+    name: 'Wireless Headphones',
+    price: 79.99,
+    category: 'Electronics',
+    brand: 'AudioTech',
+    description: 'High-quality wireless headphones with noise cancellation and superior sound quality.',
+    image: 'https://picsum.photos/seed/headphones/300/300.jpg',
+    stock: 15,
+    rating: 4.5,
+    popular: true
+  },
+  {
+    id: 2,
+    name: 'Smart Watch',
+    price: 249.99,
+    category: 'Electronics',
+    brand: 'TechWatch',
+    description: 'Fitness tracking smartwatch with heart rate monitor and GPS.',
+    image: 'https://picsum.photos/seed/smartwatch/300/300.jpg',
+    stock: 8,
+    rating: 4.2,
+    popular: true
+  },
+  {
+    id: 3,
+    name: 'Running Shoes',
+    price: 89.99,
+    category: 'Sports',
+    brand: 'SportMax',
+    description: 'Comfortable running shoes with excellent cushioning and durability.',
+    image: 'https://picsum.photos/seed/shoes/300/300.jpg',
+    stock: 25,
+    rating: 4.7,
+    popular: false
+  },
+  {
+    id: 4,
+    name: 'Coffee Maker',
+    price: 129.99,
+    category: 'Home',
+    brand: 'BrewMaster',
+    description: 'Programmable coffee maker with thermal carafe and auto-brew feature.',
+    image: 'https://picsum.photos/seed/coffee/300/300.jpg',
+    stock: 12,
+    rating: 4.0,
+    popular: false
+  },
+  {
+    id: 5,
+    name: 'Yoga Mat',
+    price: 29.99,
+    category: 'Sports',
+    brand: 'FitGear',
+    description: 'Non-slip exercise yoga mat with carrying strap and alignment markers.',
+    image: 'https://picsum.photos/seed/yoga/300/300.jpg',
+    stock: 30,
+    rating: 4.3,
+    popular: false
+  },
+  {
+    id: 6,
+    name: 'Backpack',
+    price: 59.99,
+    category: 'Accessories',
+    brand: 'UrbanPack',
+    description: 'Durable laptop backpack with USB charging port and multiple compartments.',
+    image: 'https://picsum.photos/seed/backpack/300/300.jpg',
+    stock: 18,
+    rating: 4.6,
+    popular: true
+  },
+  {
+    id: 7,
+    name: 'Bluetooth Speaker',
+    price: 45.99,
+    category: 'Electronics',
+    brand: 'SoundWave',
+    description: 'Portable bluetooth speaker with 12-hour battery life and waterproof design.',
+    image: 'https://picsum.photos/seed/speaker/300/300.jpg',
+    stock: 22,
+    rating: 4.4,
+    popular: false
+  },
+  {
+    id: 8,
+    name: 'Water Bottle',
+    price: 19.99,
+    category: 'Sports',
+    brand: 'HydroMax',
+    description: 'Insulated stainless steel water bottle that keeps drinks cold for 24 hours.',
+    image: 'https://picsum.photos/seed/bottle/300/300.jpg',
+    stock: 35,
+    rating: 4.1,
+    popular: false
+  },
+  {
+    id: 9,
+    name: 'Desk Lamp',
+    price: 34.99,
+    category: 'Home',
+    brand: 'BrightLight',
+    description: 'LED desk lamp with adjustable brightness and color temperature.',
+    image: 'https://picsum.photos/seed/lamp/300/300.jpg',
+    stock: 14,
+    rating: 4.0,
+    popular: false
+  }
+]
