@@ -7,7 +7,7 @@ import cartService from "../services/cartAPI.js";
 export default function Cart({ user, onLogout }) {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [lineBusy, setLineBusy] = useState(null); // 正在更新哪一行（按 productId）
+    const [lineBusy, setLineBusy] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -26,17 +26,30 @@ export default function Cart({ user, onLogout }) {
         }
     };
 
-    // 数量变更：delta = +1 / -1
+    const handleQtyInput = async (it, newQty) => {
+
+        const maxStock = Math.max(1, Number(it.stock) || 1);
+        newQty = Math.min(Math.max(1, newQty), maxStock);
+
+        const delta = newQty - it.quantity;
+        if (delta === 0) return;
+        console.log(newQty);
+        await changeQty(it, delta);
+    };
+
     const changeQty = async (it, delta) => {
         if (!it || !it.productId) return;
-        if (delta < 0 && it.quantity <= 1) return; // 不减到 0 以下
+        if (delta === 0) return;
+        // exceeding stock also exit
+        if (it.stock < delta + it.quantity) return;
+        console.log(delta);
         try {
             setLineBusy(it.productId);
             setError(null);
             if (delta > 0) {
-                await cartService.addItemToCart(it.productId, 1);
+                await cartService.addItemToCart(it.productId, delta);
             } else {
-                await cartService.removeItemFromCart(it.productId, 1);
+                await cartService.removeItemFromCart(it.productId, -delta);
             }
             await fetchCart();
         } catch (e) {
@@ -44,6 +57,7 @@ export default function Cart({ user, onLogout }) {
         } finally {
             setLineBusy(null);
         }
+        return it.quantity + delta;
     };
 
     const fmt = (n) => (Number(n) || 0).toFixed(2);
@@ -58,18 +72,10 @@ export default function Cart({ user, onLogout }) {
     if (loading) {
         return (
             <div className="cart-page">
-                <nav className="navbar">
-                    <div className="nav-inner">
-                        <a href="/" className="brand">🛒 Shopping Cart System</a>
-                    </div>
-                </nav>
+                <nav className="navbar"><div className="nav-inner"><a href="/" className="brand">🛒 Shopping Cart System</a></div></nav>
                 <main className="container"><div className="loading">Loading…</div></main>
             </div>
         );
-    }
-
-    if (error) {
-        // 有错误仍然展示页面，提示放上方
     }
 
     const isEmpty = !cart || !cart.items || cart.items.length === 0;
@@ -78,10 +84,7 @@ export default function Cart({ user, onLogout }) {
         <div className="cart-page">
             <nav className="navbar">
                 <div className="nav-container">
-                    <a href="/" className="navbar-brand">
-                        <span className="cart-icon">🛒</span>
-                        Shopping Cart System
-                    </a>
+                    <a href="/" className="navbar-brand"><span className="cart-icon">🛒</span>Shopping Cart System</a>
                     <div className="nav-links">
                         <a href="/" className="nav-link">Home</a>
                         <a href="/products" className="nav-link">Products</a>
@@ -93,10 +96,7 @@ export default function Cart({ user, onLogout }) {
                                     <span className="user-icon">👤</span>
                                     <span className="user-name">{user || "User"}</span>
                                 </div>
-                                <button onClick={onLogout} className="logout-btn">
-                                    <span className="logout-icon">🚪</span>
-                                    Logout
-                                </button>
+                                <button onClick={onLogout} className="logout-btn"><span className="logout-icon">🚪</span>Logout</button>
                             </div>
                         )}
                     </div>
@@ -106,11 +106,7 @@ export default function Cart({ user, onLogout }) {
             <main className="container">
                 <h2>My Cart</h2>
 
-                {error && (
-                    <div className="alert">
-                        <span className="alert-icon">⚠️</span>{error}
-                    </div>
-                )}
+                {error && <div className="alert"><span className="alert-icon">⚠️</span>{error}</div>}
 
                 {isEmpty ? (
                     <div className="empty">
@@ -123,55 +119,57 @@ export default function Cart({ user, onLogout }) {
                     <div className="grid">
                         {/* Items */}
                         <section>
-                            <div className="list-header">
-                                <h4>Items</h4>
-                            </div>
-
+                            <div className="list-header"><h4>Items</h4></div>
                             <div>
                                 {cart.items.map((it) => (
                                     <article className="card" key={it.productId}>
                                         <div className="row">
                                             <div className="thumb-col">
-                                                <img
-                                                    className="thumb"
-                                                    loading="lazy"
-                                                    src={it.imageUrl || "/images/default-product.jpg"}
-                                                    alt={it.productName}
-                                                    onError={(e) => {
-                                                        e.currentTarget.src = "/images/default-product.jpg";
-                                                    }}
-                                                />
+                                                <img className="thumb" loading="lazy"
+                                                     src={it.imageUrl || "/images/default-product.jpg"}
+                                                     alt={it.productName}
+                                                     onError={(e) => { e.currentTarget.src = "/images/default-product.jpg"; }}/>
                                             </div>
 
                                             <div className="info-col">
-                                                <a className="title"
-                                                   href={`/products/${it.productId}`}>{it.productName}</a>
+                                                <a className="title" href={`/products/${it.productId}`}>{it.productName}</a>
                                                 <p className="muted">Unit price: ¥ {fmt(it.unitPrice)}</p>
+                                                <p className="muted">Stock: {it.stock}</p>
 
-                                                {/* 数量调节 */}
                                                 <div className="qty-row">
-                                                    <button
-                                                        className="btn-ghost-dark"
-                                                        onClick={() => changeQty(it, -1)}
-                                                        disabled={lineBusy === it.productId || it.quantity <= 1}
-                                                        title="Decrease"
-                                                    >−
+                                                    <button className="btn-ghost-dark"
+                                                            onClick={() => changeQty(it, -1)}
+                                                            disabled={lineBusy === it.productId || it.quantity <= 1}>−
                                                     </button>
 
-                                                    <span className="qty-num">{it.quantity}</span>
-
-                                                    <button
-                                                        className="btn-ghost-dark"
-                                                        onClick={() => changeQty(it, +1)}
+                                                    <input
+                                                        type="number"
+                                                        min="1"
+                                                        max={Math.max(1, Number(it.stock) || 1)}
+                                                        className="qty-input"
+                                                        value={it.quantity}
+                                                        onChange={(e) => handleQtyInput(it, e.target.value)}
                                                         disabled={lineBusy === it.productId}
-                                                        title="Increase"
-                                                    >＋
+                                                        style={{width: "50px", textAlign: "center"}}
+                                                    />
+
+                                                    <button className="btn-ghost-dark"
+                                                            onClick={() => changeQty(it, 1)}
+                                                            disabled={lineBusy === it.productId || it.quantity >= it.stock}>＋
                                                     </button>
+                                                    {it.stock < it.quantity &&
+                                                        <p className="stock-badge out">Out of stock, please modify the
+                                                            quantity or remove this item</p>
+                                                    }
                                                 </div>
                                             </div>
 
                                             <div className="sum-col">
                                                 <div className="price">¥ {fmt(it.subtotal)}</div>
+                                                <button className="btn-delete"
+                                                        onClick={() => changeQty(it, -99)}
+                                                        disabled={lineBusy === it.productId}>❌
+                                                </button>
                                             </div>
                                         </div>
                                     </article>
@@ -181,30 +179,21 @@ export default function Cart({ user, onLogout }) {
 
                         {/* Summary */}
                         <aside className="summary">
-                            <h4>Order Summary</h4>
-                            <div className="summary-row">
-                                <span>Total items:</span>
-                                <span>{cart.totalQuantity}</span>
-                            </div>
-                            <div className="summary-row">
-                                <span>Total:</span>
-                                <span>¥ {fmt(cart.totalPrice)}</span>
-                            </div>
+                        <h4>Order Summary</h4>
+                            <div className="summary-row"><span>Total items:</span><span>{cart.totalQuantity}</span></div>
+                            <div className="summary-row"><span>Total:</span><span>¥ {fmt(cart.totalPrice)}</span></div>
 
                             <div className="summary-actions">
-                                <button className="btn-primary" onClick={handleCheckout}>
-                                    Checkout
-                                </button>
+                                <button className="btn-primary" onClick={handleCheckout}>Checkout</button>
                                 <a className="btn-ghost-dark" href="/products">Continue Shopping</a>
                             </div>
                         </aside>
                     </div>
                 )}
             </main>
+
             <footer className="footer">
-                <div className="container">
-                    <p>&copy; 2025 WLLCH Co., Ltd. All rights reserved.</p>
-                </div>
+                <div className="container"><p>&copy; 2025 WLLCH Co., Ltd. All rights reserved.</p></div>
             </footer>
         </div>
     );

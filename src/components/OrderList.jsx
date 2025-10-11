@@ -47,6 +47,9 @@ export default function OrderList({ user, onLogout }) {
         }
     };
 
+    // check stock with localstorage
+
+
     if (loading) {
         return (
             <div className="orders-page">

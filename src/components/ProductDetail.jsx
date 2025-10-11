@@ -44,7 +44,8 @@ export default function ProductDetail({ user, onLogout }) {
             setToast("Added to cart ✓");
             setTimeout(() => setToast(""), 1200);
         } catch (e) {
-            setErr("Failed to add to cart. Please try again.");
+            console.log(e);
+            setToast(e?.response?.data?.message || 'Failed to add, please retry.')
         } finally {
             setSubmitting(false);
         }

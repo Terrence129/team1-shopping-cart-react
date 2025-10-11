@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { productService } from '../services/productAPI.js'
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import './Products.css'
 import '../App.css'
 import '../styles/common.css'
@@ -49,7 +49,6 @@ function Products({ user, onLogout }) {
     }
   }
 
-  // NEW: super-simple add-to-cart
   const addItemToCart = async (productId, quantity = 1) => {
     if (!user) {
       setToast('Please login to add items')
@@ -171,7 +170,6 @@ function Products({ user, onLogout }) {
                 </div>
             )}
 
-            {/* Toast (NEW) */}
             {toast && <div className="toast">{toast}</div>}
 
             {/* Products Grid */}

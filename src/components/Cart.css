@@ -94,11 +94,25 @@
     margin: 4px 0;
 }
 .sum-col {
+    height: 100%;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 .price {
+    align-items: center;
+    height: 50%;
     color: #e74c3c;
     font-weight: 700;
+}
+.btn-delete {
+    color: #e74c3c;
+    background: #fff;
+    border: 1px solid rgba(41, 40, 40, 0.46);
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: center;
+    text-decoration: none;
 }
 
 /* Summary box */
