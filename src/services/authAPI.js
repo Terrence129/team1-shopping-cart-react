@@ -39,6 +39,16 @@ export const authService = {
       console.error('Error fetching current user:', error)
       throw error
     }
+  },
+
+  register: async (credentials) => {
+    try {
+      const response = await authAPI.post('/auth/register', credentials)
+      return response.data
+    } catch (error) {
+      console.error('Error register:', error)
+      throw error
+    }
   }
 }
 

@@ -139,13 +139,9 @@ function Login({ onLogin }) {
                 <span>OR</span>
               </div>
               <div className="guest-access">
-                <button className="guest-btn" onClick={() => window.location.href = '/products'}>
-                  <span className="guest-icon">👁️</span>
-                  View as a guest
-                </button>
               </div>
               <p className="signup-prompt">
-                Do not have an account？<a href="#" className="signup-link">Sign up now</a>
+                Do not have an account？<a href="/register" className="signup-link">Sign up now</a>
               </p>
             </div>
           </div>
